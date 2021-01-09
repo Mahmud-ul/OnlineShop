@@ -1,0 +1,33 @@
+﻿@using EcommerceApp.ViewModel.SlideShow;
+@model SlideShowViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h2 class="text-center">Add Slide-Show</h2><hr />
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form method="post" asp-controller="SlideShow" asp-action="Create" enctype="multipart/form-data">
+        <div class="box-body">
+            <div class="form-group">
+                <label asp-for="Photo">Choose Photo</label>
+                <Input type="file" asp-for="Photo">
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" asp-for="Status"> Status
+                </label>
+            </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-success">Create</button>
+            <a asp-controller="SlideShow" asp-action="Index" class="btn btn-primary">Back to List</a>
+            <span class="text-danger">@ViewBag.ErrorMessage</span>
+        </div>
+    </form>
+</div>

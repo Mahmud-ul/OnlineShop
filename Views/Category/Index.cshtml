@@ -1,0 +1,98 @@
+﻿@using EcommerceApp.ViewModel.Category;
+@model IEnumerable<CategoryViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="box">
+    <div class="box-header">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">Category List</h2>
+                <hr />
+            </div>
+        </div>
+    </div>
+
+    <div class="box-body">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th><i>Id</i></th>
+                    <th><i>Category</i></th>
+                    <th><i>Parent-Category</i></th>
+                    <th><i>Status</i></th>
+                    <th><i>Action</i></th>
+                </tr>
+            </thead>
+            @{
+                int i = 0;
+            }
+            @foreach (CategoryViewModel item in Model)
+            {                
+                <tbody>
+                    @if (item.MainCat == null)
+                    {
+                        i = 0;
+                        <tr>
+                            <td>@item.Id</td>
+                            <td><b>@item.Name</b></td>
+                            <td></td>
+                            <td>@(item.Status == true ? "show" : "Not Show")</td>
+
+                            <td>
+                                <a asp-controller="Category" asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning text-black"><i class="fa fa-pencil"></i> &nbsp; Update</a> |
+                                @foreach (CategoryViewModel item3 in Model)
+                                {
+                                    if (item.Id == item3.MainCat)
+                                    {
+                                        i = 1;
+                                        break;
+                                    }
+                                }
+
+                                @if (i == 0)
+                                {
+                                    <a asp-controller="Category" asp-action="Remove" asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Are you Sure?')"><i class="fa fa-trash-o" aria-hidden="true"></i> &nbsp; Delete</a><span>|</span>
+                                }
+
+                                <a asp-controller="Category" asp-action="SubCategory" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp; Add Sub-Category</a>
+
+                            </td>
+                        </tr>
+                    }
+                    @foreach (CategoryViewModel item2 in Model)
+                    {
+                        if (item.Id == item2.MainCat)
+                        {
+                            <tr>
+                                <td>@item2.Id</td>
+                                <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @item2.Name</td>
+                                <td>@item.Name</td>
+                                <td>@(item2.Status == true? "show" : "Not Show")</td>
+                                <td>
+                                    <a asp-controller="Category" asp-action="Update" asp-route-id="@item2.Id" class="btn btn-warning text-black"><i class="fa fa-pencil"></i> &nbsp; Update</a> |
+                                    <a asp-controller="Category" asp-action="Remove" asp-route-id="@item2.Id" class="btn btn-danger" onclick="return confirm('Are you Sure?')"><i class="fa fa-trash-o" aria-hidden="true"></i> &nbsp; Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            }
+
+            <tfoot>
+                <tr>
+                    <th><i>Id</i></th>
+                    <th><i>Category</i></th>
+                    <th><i>Parent-Category</i></th>
+                    <th><i>Status</i></th>
+                    <th><i>Action</i></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+

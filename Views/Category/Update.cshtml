@@ -1,0 +1,37 @@
+﻿@using EcommerceApp.ViewModel.Category;
+@model CategoryUpdateViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h2 class="text-center">Update Category</h2><hr />
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form method="post" asp-controller="Category" asp-action="Update" asp-route-id="@Model.Id" enctype="multipart/form-data" role="form">
+        <div class="box-body">
+            <div class="form-group">
+                <label asp-for="@Model.Name">Sub-Category</label>
+                <input type="text" class="form-control col-md-5" asp-for="@Model.Name" required="required"><br>
+                <input type="hidden" class="form-control col-md-5" asp-for="@Model.MainCat" required="required"><br>
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" asp-for="@Model.Status"> Status
+                </label>
+            </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-success">Update</button>
+            <a asp-controller="Category" asp-action="Index" class="btn btn-primary">Back to List</a>
+            <span class="text-danger">@ViewBag.ErrorMessage</span>
+        </div>
+    </form>
+</div>
+

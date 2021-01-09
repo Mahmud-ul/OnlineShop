@@ -1,0 +1,38 @@
+﻿@using EcommerceApp.Model.Models;
+@model IEnumerable<Category>;
+
+@{
+
+}
+
+<ul id="sideManu" class="nav nav-tabs nav-stacked">
+    @{
+        int n;
+     }
+    @foreach (Category item in Model)
+    {
+        n = 0;
+        @foreach (Category item2 in Model)
+        {
+            if (item2.MainCat == item.Id)
+            {
+                n++;
+            }
+        }
+        if (item.MainCat == null)
+        {
+            <li class="subMenu open">
+                <a><b>@item.Name<span>&nbsp; (@n)</span></b></a>
+                <ul>
+                    @foreach (Category item2 in Model)
+                    {
+                        if (item2.MainCat == item.Id)
+                        {
+                            <li><a><i class="icon-chevron-right"></i>@item2.Name</a></li>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+    }
+</ul>

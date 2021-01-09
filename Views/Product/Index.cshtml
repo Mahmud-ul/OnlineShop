@@ -1,0 +1,94 @@
+﻿@using EcommerceApp.ViewModel.Product;
+@using EcommerceApp.ViewModel.ProductPhoto;
+@model IEnumerable<ProductViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="box">
+    <div class="box-header">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">Product List</h2>
+                <hr/>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th><i>Id</i></th>
+                    <th><i>Basic Info</i></th>
+                    <th><i>Item Info</i></th>
+                    <th><i>Description</i></th>
+                    <th><i>Photo</i></th>
+                    <th><i>Status</i></th>
+                    <th><i>Action</i></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int n;
+                }
+                @foreach (ProductViewModel item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>
+                            <div><b>Name:</b> @item.Name</div>
+                            <div><b>Category:</b> @item.Category.Name</div>
+                            <div><b>Brand:</b> @item.Brand.Name</div>
+                        </td>
+                        <td>
+                            <div><b>Price:</b> @item.Price</div>
+                            <div><b>Quantity:</b> @item.Quantity</div>
+                        </td>
+                        <td>
+                            <div><b>Detail:</b> @item.Detail</div>
+                            <div><b>Specification:</b> @item.Description</div>
+                        </td>
+                        <td>
+                            @{n = 0;}
+                            @foreach (ProductPhotoCreateViewModel item2 in ViewBag.ProductPhotos)
+                            {
+                                if (@item.Id == @item2.ProductId && @item2.Featured == true)
+                                {
+                                    <img src="~/@item2.Photo" height="60" width="100">
+                                    n = 1;
+                                    break;
+                                }
+                            }
+                            @if (n == 0)
+                            {
+                                <img src="~/product_photo/NoImageFound.jpg" height="60" width="100">
+                            }
+                        </td>
+                        <td>
+                            <div><b>Featured:</b> @(item.Featured == true? "Yes" : "No")</div>
+                            <div><b>Status:</b> @(item.Status == true? "show" : "Not Show")</div>
+                        </td>
+                        <td>
+                            <a asp-controller="ProductPhoto" asp-action="Index2" asp-route-id="@item.Id" class="btn btn-github text-white"><i class="fa fa-picture-o"></i> &nbsp; Photo</a> |
+                            <a asp-controller="Product" asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning text-black"><i class="fa fa-pencil"></i> &nbsp; Update</a> |
+                            <a asp-controller="Product" asp-action="Remove" asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Are you Sure?')"><i class="fa fa-trash-o" aria-hidden="true"></i> &nbsp; Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th><i>Id</i></th>
+                    <th><i>Basic Info</i></th>
+                    <th><i>Item Info</i></th>
+                    <th><i>Description</i></th>
+                    <th><i>Photo</i></th>
+                    <th><i>Status</i></th>
+                    <th><i>Action</i></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+

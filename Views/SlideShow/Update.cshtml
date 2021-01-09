@@ -1,0 +1,42 @@
+﻿@using EcommerceApp.ViewModel.SlideShow;
+@model SlideShowViewModel
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h2 class="text-center">Update Slide-Show</h2><hr />
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <form method="post" asp-controller="SlideShow" asp-action="Update" asp-route-pto="@Model.Photo" enctype="multipart/form-data" role="form">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label asp-for="@Model.Photo">Photo input</label>
+                            <Input type="file" asp-for="@Model.Photo" value="@Model.Photo">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" asp-for="@Model.Status"> Status
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <a asp-controller="SlideShow" asp-action="Index" class="btn btn-info">Back to List</a>
+                        <span class="text-danger">@ViewBag.ErrorMessage</span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <img src="~/@Model.Photo" height="100" width="250">
+            </div>
+        </div>
+    </div>    
+</div>
+

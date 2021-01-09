@@ -1,0 +1,21 @@
+﻿@using EcommerceApp.Model.Models;
+@model IEnumerable<SlideShow>;
+
+@{
+
+}
+
+<div id="myCarousel" class="carousel slide">
+    <div class="carousel-inner">
+        @foreach (SlideShow item in Model)
+        {
+            <div class="item">
+                <div class="container">
+                    <a><img style="height:500px" src="~/@item.Photo" alt="special offers" /></a>
+                </div>
+            </div>
+        }
+    </div>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>

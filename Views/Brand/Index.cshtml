@@ -1,0 +1,52 @@
+﻿@using EcommerceApp.ViewModel.Brand;
+@model IEnumerable<BrandViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="box">
+    <div class="box-header">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">Brand List</h2>
+                <hr />
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th><i>Id</i></th>
+                    <th><i>Name</i></th>
+                    <th><i>Status</i></th>
+                    <th><i>Action</i></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BrandViewModel item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@(item.Status == true? "show" : "Not Show")</td>
+                        <td>
+                            <a asp-controller="Brand" asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning text-black"><i class="fa fa-pencil"></i> &nbsp; Update</a> |
+                            <a asp-controller="Brand" asp-action="Remove" asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Are you Sure?')"><i class="fa fa-trash-o" aria-hidden="true"></i> &nbsp; Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th><i>Id</i></th>
+                    <th><i>Name</i></th>
+                    <th><i>Status</i></th>
+                    <th><i>Action</i></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
